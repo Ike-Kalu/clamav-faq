@@ -6,6 +6,7 @@ Table of Contents
 
 - [ClamAV Development](#clamav-development)
   - [Introduction](#introduction)
+  - [Contributing to ClamAV](#contributing-to-clamav)
   - [Building ClamAV for Development](#building-clamav-for-development)
     - [Satisfying Build Dependencies](#satisfying-build-dependencies)
       - [Debian](#debian)
@@ -17,6 +18,12 @@ Table of Contents
       - [macOS](#macos)
     - [Download the Source](#download-the-source)
     - [Building ClamAV with CMake](#building-clamav-with-cmake)
+      - [Linux/Unix](#linuxunix)
+      - [Windows](#windows)
+    - [Testing with CTest](#testing-with-ctest)
+      - [Unit Tests](#unit-tests)
+      - [Integration Tests](#integration-tests)
+      - [Feature Tests](#feature-tests)
     - [Building ClamAV with Autotools](#building-clamav-with-autotools)
       - [Running ./autogen.sh](#running-autogensh)
       - [Running ./configure](#running-configure)
@@ -40,6 +47,12 @@ Table of Contents
 This page aims to provide information useful when developing, debugging, or profiling ClamAV.
 
 ---
+
+## Contributing to ClamAV
+
+If you're interested in contributing to ClamAV, we've assembled a page of bugs that need fixing as well as other project ideas that we feel might be great new-contributor projects.
+
+Check out the [project ideas list](https://www.clamav.net/documents/contribute) to find out how you might be able to help out the project!
 
 ## Building ClamAV for Development
 
@@ -233,7 +246,88 @@ If you intend to make changes and submit a pull request, fork the clamav-devel r
 
 CLamAV versions 0.103+ provide CMake build tooling. In 0.103, this is for experimental and development purposes only. Autotools should be used for production builds. In 0.104+, we expect that CMake will be the preferred build system and will deprecate the use of Autotools.
 
-For details on how to use CMake to build ClamAV, see the `INSTALL.cmake.md` file located in the `clamav-devel` repository.
+For FULL details on how to use CMake to build ClamAV, see the `INSTALL.cmake.md` file located in the `clamav-devel` repository.
+
+Ninja Build is recommended when doing development work. Builds using Ninja are significantly faster, both on Unix and Windows systems.
+
+The following instructions assume you have installed CMake, Ninja, and either GCC, Clang, or Visual Studio 2015 or newer.
+
+#### Linux/Unix
+
+```sh
+cmake .. -G Ninja                   \
+    -D CMAKE_BUILD_TYPE="Debug"     \
+    -D OPTIMIZE=OFF                 \
+    -D CMAKE_INSTALL_PREFIX=install \
+    -D ENABLE_MILTER=ON             \
+    -D ENABLE_EXAMPLES=ON           \
+    -D ENABLE_STATIC_LIB=ON         \
+    -D ENABLE_SYSTEMD=OFF           \
+    && ninja && ninja install
+```
+
+#### Windows
+
+[vcpkg](https://github.com/microsoft/vcpkg) can be used to build the ClamAV library dependencies automatically. See the `vcpkg` README for installation instructions.
+
+Once installed, set the variable `$VCPKG_PATH` to the location where you installed `vcpkg`:
+
+```ps1
+$VCPKG_PATH="..." # Path to your vcpkg installation
+```
+
+By default, CMake and `vcpkg` build for 32-bit. If you want to build for 64-bit, set the `VCPKG_DEFAULT_TRIPLET` environment variable:
+
+```ps1
+$env:VCPKG_DEFAULT_TRIPLET="x64-windows"
+```
+
+Now run the following to build ClamAV's library dependencies:
+
+```ps1
+& "$VCPKG_PATH\vcpkg" install 'curl[openssl]' 'json-c' 'libxml2' 'pcre2' 'pthreads' 'zlib' 'pdcurses' 'bzip2'
+```
+
+Finally, you can use the following to build ClamAV using Ninja for super fast builds.
+
+```ps1
+pushd "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools"
+cmd /c "VsDevCmd.bat -arch=amd64 & set" |
+foreach {
+  if ($_ -match "=") {
+    $v = $_.split("="); set-item -force -path "ENV:\$($v[0])"  -value "$($v[1])"
+  }
+}
+popd
+Write-Host "`nVisual Studio 2017 Command Prompt variables set." -ForegroundColor Yellow
+
+cmake ..  -G Ninja                                                          `
+    -D CMAKE_BUILD_TYPE="Debug"                                             `
+    -D CMAKE_TOOLCHAIN_FILE="$VCPKG_PATH\scripts\buildsystems\vcpkg.cmake"  `
+    -D CMAKE_INSTALL_PREFIX="install"
+
+ninja
+
+ninja install
+```
+
+### Testing with CTest
+
+ClamAV version 0.104+ will include unit tests, integration tests, & feature tests performed via CMake's `ctest` toolset. All tests are executed within through `ctest` but within a Python test framework build around Python's `unittest` module. See `clamav-devel/unit_tests/testcase.py`. Python 3.5+ is required.
+
+*Note*: Valgrind tests are performed on Linux if Valgrind is installed.
+
+#### Unit Tests
+
+The libclamav unit tests use the [libcheck](https://github.com/libcheck/check) framework. There are presently no unit tests for libfreshclam. See `clamav-devel/unit_tests/check_clamav.c` for the libclamav unit tests.
+
+#### Integration Tests
+
+ClamAV is presently light on integration tests for libclamav, though you may think of the application feature as integration tests, because the apps integrate libclamav. Tests for additional features not easily exercised via the existing applications could be added by creating new example applications in `clamav-devel/examples` and exercising those programs in new CTest tests. See `clamav-devel/unit_tests/CMakeLists.txt` and `clamav-devel/examples/CMakeLists.txt` for details.
+
+#### Feature Tests
+
+ClamAV primarily has feature tests for ClamD and ClamScan, though basic verion tests do exist for FreshClam and SigTool as well. See `clamav-devel/unit_tests/CMakeLists.txt` and `clamav-devel/unit_tests/clamscan_test.py` for an example.
 
 ### Building ClamAV with Autotools
 

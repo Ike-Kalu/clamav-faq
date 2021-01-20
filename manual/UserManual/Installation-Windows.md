@@ -65,6 +65,28 @@ In the PowerShell window, perform the following tasks:
 
 ---
 
+## Additional notes about the config files and database directories
+
+The install directory is but one of a few locations ClamAV may search for configs and for signature databases.
+
+### Config files path search order
+
+1. The content of the registry key:
+   "HKEY_LOCAL_MACHINE/Software/ClamAV/ConfDir"
+2. The directory where libclamav.dll is located:
+   "C:\Program Files\ClamAV"
+3. "C:\ClamAV"
+
+### Database files path search order
+
+1. The content of the registry key:
+  "HKEY_LOCAL_MACHINE/Software/ClamAV/DataDir"
+2. The directory "database" inside the directory where libclamav.dll is located:
+  "C:\Program Files\ClamAV\database"
+3. "C:\ClamAV\db"
+
+---
+
 ## Next Steps
 
 ---
@@ -110,9 +132,9 @@ Continuing in the PowerShell window:
 
 ---
 
-### Faster a-la-carte Scanning with `clamd`
+### Faster a-la-carte Scanning with ClamD
 
-You may have noticed that `clamscan` takes a while to get started. This is because it loads the signature database each time you start a scan. If you require faster scanning of individual files, you will want to use `clamd` with `clamdscan` instead.
+You may have noticed that `clamscan.exe` takes a while to get started. This is because it loads the signature database each time you start a scan. If you require faster scanning of individual files, you will want to use `clamd.exe` with `clamdscan.exe` instead. Please note that many of the command line options for clamscan should instead be configured in `clamd.conf` when using `clamd.exe`.
 
 Continuing in the PowerShell window:
 
@@ -121,11 +143,40 @@ Continuing in the PowerShell window:
       .\clamd.exe
   </pre>
 
-  The application will take a moment to load and then appear to hang, but it is in fact waiting for scanning commands from `clamdscan`.
+  The application will take a moment to load and then appear to hang, but it is in fact waiting for scanning commands from `clamdscan.exe`.
 
 2. Open a second PowerShell window as you did above, in the same directory.
 
-3. In the second PowerShell window, you can now run `clamdscan` much the same way you did with `clamscan` above.
+3. In the second PowerShell window, you can now run `clamdscan.exe` much the same way you did with `clamscan.exe` above.
   <pre>
       .\clamdscan.exe .
   </pre>
+
+---
+
+## Additional Notes about Windows-specific Issues
+
+### Globbing
+
+Since the Windows command prompt doesn't take care of wildcard expansion, minimal emulation of unix glob() is performed internally. It supports `*` and `?` only.
+
+### File paths
+
+Please always use the backslash as the path separator. SMB Network shares and UNC paths are supported.
+
+#### Socket and libclamav API Input
+
+The Windows version of ClamAV requires all the input to be UTF-8 encoded.
+
+This affects:
+
+- The API, notably the cl_scanfile() function
+- ClamD socket input, e.g. the commands SCAN, CONTSCAN, MUTLISCAN, etc.
+- ClamD socket output, i.e replies to the above queries
+
+For legacy reasons ANSI (i.e. CP_ACP) input will still be accepted and processed as before, but with two important remarks:
+
+1. Socket replies to ANSI queries will still be UTF-8 encoded.
+2. ANSI sequences which are also valid UTF-8 sequences will be handled as UTF-8.
+
+As a side note, console output (stdin and stderr) will always be OEM encoded, even when redirected to a file.
