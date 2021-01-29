@@ -1,47 +1,34 @@
 # Safebrowsing  #
 
-CURRENT STATUS at October 2020.
+## About
 
-The safebrowsing feature has now been spun off into a related project.
-It requires substantially more effort to implement safebrowsing than
-simply enabling the relevant freshclam.conf configuration option.
+[Google Safe Browsing](https://safebrowsing.google.com/) may be used to get advanced protection against emails with links to suspicious websites.
 
-Briefly, tools are needed to
+## Current Status
 
-1. Download the data from Google to a local mysql database using
-Google's API [*];
+The Safe Browsing feature has now been spun off into a [related project](https://github.com/Cisco-Talos/clamav-safebrowsing).
 
-2. produce a local copy of the safebrowsing database file in a form
-suitable for use by the ClamAV tools;
+ClamAV previously provided a "safebrowsing" signature database derived from Google's Safe Browsing API using our own account and API key. Due to changes to the terms of service, we can no longer provide the signature content for you. Users that desire Safe Browsing coverage for non-commercial purposes can still generate their own safebrowsing signature database using the clamav-safebrowsing tools with a Google Safe Browsing API key.
 
-3. distribute this database file to the systems which need it; and
+Briefly, clamav-safebrowsing tools are needed to:
 
-4. optionally notify any clamd daemons of the change.
+1. Download the data from Google to a local MySQL database using Google's API [*];
 
-[*] For efficiency, the API permits downloading differences, in much
-the same way that ClamAV itself uses .cdiff files.
+2. Produce a local copy of the safebrowsing database file in a form suitable for use by the ClamAV tools;
 
-Documentation can be found at
+You will have to decide how to distribute this database file to the systems which need it; and to notify any clamd daemons of the change so that they load the new signatures.
+
+[*] For efficiency, the API permits downloading differences, in much the same way that ClamAV itself uses `.cdiff` files. The clamav-safebrowsing tool uses a MySQL database to store the Safe Browsing data so it can apply these differences the next time you use it.
+
+For more information, please visit:
 
 https://github.com/Cisco-Talos/clamav-safebrowsing
 
 
-HISTORY
+## History
 
-ClamAV 0.95 introduced support for the Google Safe Browsing database.
+ClamAV 0.95 introduced an optional "safebrowsing" signature database to provide advanced protection against emails with links to suspicious websites. This was generated using Google's Safe Browsing API.
 
-For use with ClamAV a copy of the database was packed inside the file
-"safebrowsing.cvd" which was distributed in the same way as the other
-ClamAV database files via the ClamAV mirror network.  Downloading the
-database was disabled by default, and the feature was to be enabled
-only with extreme caution.  In order to enable this feature it was
-necessary to add the option `SafeBrowsing Yes` to freshclam.conf.
-This would tell freshclam to download the safebrowsing.cvd database,
-and when ClamAV found the database in the database directory it would
-enable the safe browsing feature. To turn it off it was necessary to
-remove the configuration option from freshclam.conf AND to remove the
-safebrowsing files from the database directory.  If clamd was running
-it was necessary to restart it.
+The "safebrowsing" signature database which was distributed in the same way as the other ClamAV database files via the ClamAV mirror network. Downloading the database was disabled by default, and the feature was to be enabled only with extreme caution. In order to enable this feature it was necessary to add the option `SafeBrowsing Yes` to `freshclam.conf`.
 
-Updates to the safebrowsing.cvd database were discontinued in 2019 and
-it was declared obsolete.
+As of Nov. 11, 2019, we stopped updating the "safebrowsing" signature database because Google announced changes to their Safe Browsing API terms of service. Google now requires commercial users to use the Google Web Risk API, a for-profit feature, instead of the Safe Browsing API. Though ClamAV itself is free and open-source, we cannot continue to provide Google Safe Browsing data to the general public.
