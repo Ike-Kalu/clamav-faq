@@ -30,7 +30,6 @@ Some distributions parcel up ClamAV components into separate packages. You don't
 * [Solaris](#solaris)
 * [Slackware](#slackware)
 * [Windows](#windows)
-* [OpenVMS](#openvms)
 * [OSX](#osx)
 
 ---
@@ -132,15 +131,6 @@ More info on [OpenCSW]
 
 Martijn Dekker provides packages there that provide complete and semi-automatic integration with ClamAV's stock Sendmail package.
 
----
-
-### macOS <a id="osx" class="anchor">&nbsp;</a>
-
-Various Installation Guides for macOS can be found on the Internet, two that we have seen are:
-
-* [Building ClamAV on macOS]
-* [Get ClamAV running on macOS (using Homebrew)]
-
 #### How to use
 
 Download the package, and as root, install it like so (substituting the appropriate filename):
@@ -176,54 +166,67 @@ This script can be used to build a ClamAV package for Slackware 10.0 or higher w
 
 ---
 
-### Windows <a id="windows" class="anchor">&nbsp;</a>
+### macOS <a id="osx" class="anchor">&nbsp;</a>
 
-#### First update Windows
+ClamAV can be easily installed on macOS using one of these popular package managers:
+- [Homebrew](https://brew.sh): [ClamAV formula](https://formulae.brew.sh/formula/clamav)
+- [MacPorts](https://www.macports.org/install.php): [ClamAV port](https://ports.macports.org/port/clamav/summary)
 
-* Microsoft Update
+#### Homebrew
 
-#### Available Packages
+Install [Homebrew](https://brew.sh) if you don't already have it. Then run:
 
-ClamAV builds for Windows users are available [here](https://www.clamav.net/downloads#otherversions)
+<pre>
+  brew install clamav
+</pre>
 
-* `ClamAV-0.103.0.exe` - Traditional executable installer that will install ClamAV in the "Program Files" directory.
-* `clamav-0.103.0-rc-win-x64-portable.zip` - Portable install package for 64-bit Windows systems.
-* `clamav-0.103.0-rc-win-x86-portable.zip` - Portable install package for 32-bit Windows systems.
+Homebrew installs versioned packages to `/usr/local/Cellar/<pacakge>/<version>` with symlinks in `/usr/local/opt/<pacakge>` to the current version. Symlinks for ClamAV's executables will be placed in `/usr/local/bin` to add them to your PATH. ClamAV's config files will be placed in `/usr/local/etc/clamav`.
 
-#### How to Install
+As with most other installation methods, you may need to do the following at a minimum before you can run `freshclam`, `clamscan`, or use `clamdscan` with `clamd`:
+1. Create `/usr/local/etc/clamav/freshclam.conf` from `/usr/local/etc/clamav/freshclam.conf.sample`.
+2. Remove or comment-out the `Example` line from `freshclam.conf`
+3. Run `freshclam` to download the latest malware definitions.
 
-* simple mode: doubleclick the MSI installer package
-* command line (displays only a confirmation dialog at the end): `msiexec /i clamAV.msi /qr`
+If you wish to run `clamd` you'll also need to create `/usr/local/etc/clamav/clamd.conf` from `/usr/local/etc/clamav/clamd.conf.sample`, and configure `clamd.conf` with Local/Unix socket settings (preferred), or TCP socket settings.
+
+#### MacPorts
+
+Install [MacPorts](https://www.macports.org/install.php) if you don't already have it. Then run:
+
+<pre>
+  sudo port install clamav
+</pre>
+
+MacPorts installs versioned packages to `/opt/local/`. ClamAV's config files will be placed in `/opt/local/etc`.
+
+As with most other installation methods, you may need to do the following at a minimum before you can run `freshclam`, `clamscan`, or use `clamdscan` with `clamd`:
+1. Create `/opt/local/etc/freshclam.conf` from `/opt/local/etc/freshclam.conf.sample`.
+2. Remove or comment-out the `Example` line from `freshclam.conf`
+3. Run `freshclam` to download the latest malware definitions.
+
+If you wish to run `clamd` you'll also need to create `/opt/local/etc/clamd.conf` from `/opt/local/etc/clamd.conf.sample`, and configure `clamd.conf` with Local/Unix socket settings (preferred), or TCP socket settings.
 
 ---
 
-### OpenVMS <a id="openvms" class="anchor">&nbsp;</a>
+### Windows <a id="windows" class="anchor">&nbsp;</a>
 
-The ClamAV [for OpenVMS] port is maintained by Alexey Chupahin, Mibok Ltd
+Official ClamAV builds for Windows users are available [here](https://www.clamav.net/downloads#otherversions)
 
-Please visit ClamAV [OpenVMS project site]
+* `ClamAV-<version>.exe` - Traditional executable installer that will install ClamAV in the "Program Files" directory.
+* `clamav-<version>-rc-win-x64-portable.zip` - Portable install package for 64-bit Windows systems.
+* `clamav-<version>-rc-win-x86-portable.zip` - Portable install package for 32-bit Windows systems.
 
-First, you should download latest clamav sources and bzip2 library (if you need bz2 archives support) from the site above. Install process is very similar to one in unix:
+#### How to Install
 
-<pre>
-  @configure
-  @build
-  @clamav$startup
-</pre>
+* Simple mode: Double-click the EXE installer.
+* Command line (for scripted installs): `powershell.exe ClamAV-<version>.exe /DIR="C:\Your\Install\Directory" /norestart /quiet /verysilent /LOG="clamav_install.log"`
+* Portable (unzip): Unzip the portable install package of choice to any directory.
 
-This process provides for you:
+For more comprehensive instructions, please visit our [Windows Installation page](https://www.clamav.net/documents/installing-clamav-on-windows).
 
-* ClamAV library
-* clamscan
-* freshclam
-* clamd
-* clamdscan
-* clamconf
-* scripts, allow you to start clamd and freshclam in daemon mode
+---
 
 [OpenCSW]: https://www.opencsw.org
-[OpenVMS project site]: http://clamav.dyndns.org/clamav
-[for OpenVMS]: http://www.openvms.org/
 [UninstallClamAV]: https://www.clamav.net/documents/uninstalling-clamav
 [Which Version]: https://www.clamav.net/documents/which-version-of-clamav-should-i-use
 [ClamOverview]: faq-overview.md
@@ -231,5 +234,3 @@ This process provides for you:
 [Extra Packages for Enterprise Linux (EPEL) repository]: https://fedoraproject.org/wiki/EPEL
 [RedHat Enterprise Linux (RHEL)]: https://www.redhat.com/en/technologies/linux-platforms/enterprise-linux
 [Portage]: https://packages.gentoo.org/package/app-antivirus/clamav
-[Building ClamAV on macOS]: http://www.gctv.ne.jp/~yokota/clamav/
-[Get ClamAV running on macOS (using Homebrew)]: https://gist.github.com/zhurui1008/4fdc875e557014c3a34e
