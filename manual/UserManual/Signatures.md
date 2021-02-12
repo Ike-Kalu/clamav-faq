@@ -93,7 +93,7 @@ ClamAV body-based signature content has a [special format](https://www.clamav.ne
 
 ### Other database files
 
-`*.fp` `*.sfp` `*.ign` `*.ign2`: [allowed files, ignored signatures](https://www.clamav.net/documents/Allow-list-databases)
+`*.fp` `*.sfp` `*.ign` `*.ign2`: [allowed files, ignored signatures](https://www.clamav.net/documents/allow-list-databases)
 
 `*.pwdb`: [Encrypted archive passwords](https://www.clamav.net/documents/passwords-for-archive-files-experimental)
 
