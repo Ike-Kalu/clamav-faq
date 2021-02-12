@@ -43,6 +43,7 @@ Clam AntiVirus is an open source (GPLv2) anti-virus toolkit, designed especially
   - SIS (SymbianOS packages)
   - AutoIt
   - InstallShield
+  - ESTsoft EGG
 - Supports Windows executable file parsing, also known as Portable Executables (PE) both 32/64-bit, including PE files that are compressed or obfuscated with:
   - AsPack
   - UPX
@@ -78,27 +79,30 @@ ClamAV is licensed under the GNU General Public License, Version 2.
 Clam AntiVirus is highly cross-platform.  The development team cannot test every OS, so we have chosen to test ClamAV using the two most recent Long Term Support (LTS) versions of each of the most popular desktop operating systems.  Our regularly tested operating systems include:
 
 - GNU/Linux
+  - Alpine
+    - 3.11 (64bit)
   - Ubuntu
-    - 16.04
-    - 18.04
+    - 18.04 (64bit, 32bit)
+    - 20.04 (64bit)
   - Debian
-    - 7
-    - 8
+    - 9 (64bit, 32bit)
+    - 10 (64bit, 32bit)
   - CentOS
-    - 6
-    - 7
+    - 7 (64bit, 32bit)
+    - 8 (64bit)
+  - Fedora
+    - 30 (64bit)
+    - 31 (64bit)
 - UNIX
-  - Solaris
-    - 11
   - FreeBSD
-    - 11
-    - 12
+    - 11 (64bit)
+    - 12 (64bit)
   - macOS
     - 10.13 (High Sierra)
-    - 10.14 (Mojave)
+    - 10.15 (Catalina)
 - Windows
-  - 7
-  - 10
+  - 7 (64bit, 32bit)
+  - 10 (64bit, 32bit)
 
 ---
 
@@ -106,19 +110,17 @@ Clam AntiVirus is highly cross-platform.  The development team cannot test every
 
 The following minimum recommended system requirements are for using `clamscan` or `clamd` and `clamdscan` binaries with the standard ClamAV signature database provided by Cisco.
 
-Minimum recommended RAM:
+Minimum recommended RAM for ClamAV:
 
-- FreeBSD and Linux server edition: 1 GiB+
+- FreeBSD and Linux server edition: 2 GiB+
 - Linux non-server edition: 2 GiB+
 - Windows 7 & 10 32-bit: 2 GiB+
 - Windows 7 & 10 64-bit: 3 GiB+
 - macOS: 3 GiB+
 
-Minimum recommended CPU:
+Minimum recommended CPU for ClamAV:
 
-- FreeBSD and Linux systems: 1 CPU 2.0 Ghz+
-- Windows 7 & 10: 1 CPU 2.0 Ghz+
-- OSX: 2 CPUs at 2.0 Ghz+
+-  1 CPUs at 2.0 Ghz+
 
 Minimum available hard disk space required:
 
