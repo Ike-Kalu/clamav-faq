@@ -68,9 +68,11 @@ ClamAV Types are prefixed with `CL_TYPE_`.  The following is an exhaustive list 
 | `CL_TYPE_CPIO_OLD`     | CPIO Archive (OLD, Little Endian or Big Endian)              |
 | `CL_TYPE_CRYPTFF`      | Files encrypted by CryptFF malware                           |
 | `CL_TYPE_DMG`          | Apple DMG Archive                                            |
+| `CL_TYPE_EGG`          | ESTSoft EGG Archive, new in 0.102                            |
 | `CL_TYPE_ELF`          | ELF Executable (Linux/Unix program or library)               |
+| `CL_TYPE_GIF`          | GIF Graphics File, new in 0.103                              |
 | `CL_TYPE_GPT`          | Disk Image - GUID Partition Table                            |
-| `CL_TYPE_GRAPHICS`     | TIFF (Little Endian or Big Endian)                           |
+| `CL_TYPE_GRAPHICS`     | Other graphics files; BMP, JPEG2000                          |
 | `CL_TYPE_GZ`           | GZip Compressed File                                         |
 | `CL_TYPE_HTML_UTF16`   | Wide-Character / UTF16 encoded HTML                          |
 | `CL_TYPE_HTML`         | HTML data                                                    |
@@ -80,6 +82,7 @@ ClamAV Types are prefixed with `CL_TYPE_`.  The following is an exhaustive list 
 | `CL_TYPE_ISHIELD_MSI`  | Windows Install Shield MSI installer                         |
 | `CL_TYPE_ISO9660`      | ISO 9660 file system for optical disc media                  |
 | `CL_TYPE_JAVA`         | Java Class File                                              |
+| `CL_TYPE_JPEG`         | JPEG Graphics File, new in 0.103.1                           |
 | `CL_TYPE_LNK`          | Microsoft Windows Shortcut File                              |
 | `CL_TYPE_MACHO_UNIBIN` | Universal Binary/Java Bytecode                               |
 | `CL_TYPE_MACHO`        | Apple/NeXTSTEP Mach-O Executable file format                 |
@@ -99,6 +102,7 @@ ClamAV Types are prefixed with `CL_TYPE_`.  The following is an exhaustive list 
 | `CL_TYPE_OOXML_XL`     | Microsoft Office Open Excel 2007+                            |
 | `CL_TYPE_PART_HFSPLUS` | Apple HFS+ partition                                         |
 | `CL_TYPE_PDF`          | Adobe PDF document                                           |
+| `CL_TYPE_PNG`          | PNG Graphics File, new in 0.103                              |
 | `CL_TYPE_POSIX_TAR`    | TAR archive                                                  |
 | `CL_TYPE_PS`           | Postscript                                                   |
 | `CL_TYPE_RAR`          | RAR Archive                                                  |
@@ -113,6 +117,7 @@ ClamAV Types are prefixed with `CL_TYPE_`.  The following is an exhaustive list 
 | `CL_TYPE_TEXT_UTF16BE` | UTF-16BE text                                                |
 | `CL_TYPE_TEXT_UTF16LE` | UTF-16LE text                                                |
 | `CL_TYPE_TEXT_UTF8`    | UTF-8 text                                                   |
+| `CL_TYPE_TIFF`         | TIFF Graphics File (Little or Big Endian), new in 0.103.1    |
 | `CL_TYPE_TNEF`         | Microsoft Outlook & Exchange email attachment format         |
 | `CL_TYPE_UUENCODED`    | UUEncoded (Unix-to-Unix) binary file (Unix email attachment) |
 | `CL_TYPE_XAR`          | XAR Archive                                                  |
