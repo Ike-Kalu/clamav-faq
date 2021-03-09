@@ -55,9 +55,7 @@ You can easily install `cvdupdate` Python3's Pip package manager:
 
 (optional) Once installed, you may wish to configure where the databases are stored:
 
-<pre>
     `cvd config set --dbdir <your www path>`
-</pre>
 
 Now run this as often as you need, or at least once a day to download/update the databases:
 
