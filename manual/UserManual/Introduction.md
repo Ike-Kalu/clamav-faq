@@ -153,7 +153,7 @@ Alternatively you can try asking on the `#clamav` IRC channel - launch your favo
     /join #clamav
 </pre>
 
-If you prefer Discord over IRC, join the [ClamAV Discord chat server](https://discord.gg/sGaxA5Q). The ClamAV Discord #general, and #irc-verbose channels are bridged with the #clamav IRC channel using a pair of bots to relay messages.
+If you prefer Discord over IRC, join the [ClamAV Discord chat server](https://discord.gg/6vNAqWnVgw). The ClamAV Discord #general, and #irc-verbose channels are bridged with the #clamav IRC channel using a pair of bots to relay messages.
 
 ---
 
