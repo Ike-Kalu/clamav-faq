@@ -49,9 +49,7 @@ These instructions use a tool named [cvdupdate](https://github.com/micahsnyder/c
 
 You can easily install `cvdupdate` Python3's Pip package manager:
 
-<pre>
-    pip3 install cvdupdate
-</pre>
+`pip3 install cvdupdate`
 
 (optional) Once installed, you may wish to configure where the databases are stored:
 
@@ -59,9 +57,7 @@ You can easily install `cvdupdate` Python3's Pip package manager:
 
 Now run this as often as you need, or at least once a day to download/update the databases:
 
-<pre>
-    cvd update
-</pre>
+`cvd update`
 
 If you didn't set a custom database path, the databases will be stored in `~/.cvdupdate/database`
 
@@ -71,15 +67,11 @@ Once you have the database files, host them with your favorite webserver, or use
 
 Set up your Freshclam clients' `freshclam.conf` config file to point to:
 
-<pre>
-    DatabaseMirror http://machine1.mylan
-</pre>
+`DatabaseMirror http://machine1.mylan`
 
 You may wish to set up a proxy to enable HTTPS.  If you do, use:
 
-<pre>
-    DatabaseMirror https://machine1.mylan
-</pre>
+`DatabaseMirror https://machine1.mylan`
 
 ---
 
