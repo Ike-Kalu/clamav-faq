@@ -76,6 +76,10 @@ If you are receiving a 403, 503, or 1020 error codes when downloading from Cloud
 
 If you are receiving a 429, that means you are rate limited.  You're downloading too fast or too much.  Please use Freshclam or [cvdupdate](https://github.com/micahsnyder/cvdupdate). If you are using a shared hosting provider, like Amazon AWS, Google Cloud Computing, Oracle, Azure, etc, you will most likely be rate limted, however cvdupdate should handle this gracefully.  If you continue to receive these, we recommend you try from a different external IP address.  
 
+If you are receiving a 403 specifically on the safebrowsing.cvd file, please read [this blog post](https://www.clamav.net/documents/freshclam-faq) immediately!
+
+Are you running a version of FreshClam/ClamAV lower than `0.103.2`?  If so, you should upgrade to at least 0.103.2 immediately.
+
 If you have checked all of the above and you are still seeing errors, please open a ticket using the below link
 
 ---
