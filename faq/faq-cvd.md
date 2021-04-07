@@ -2,7 +2,7 @@
 
 ## How do I keep my virus database up to date?
 
-ClamAV comes with _FreshClam_, a tool which periodically checks for new database releases and keeps your database up to date.
+ClamAV comes with _FreshClam_, a tool which periodically checks for new database releases and keeps your database up to date. It is encouraged that you update to at least version 0.103.2, which respects our bandwidth limitations.
 
 ---
 
@@ -14,7 +14,7 @@ The virus database is usually updated once or twice per day. Sign up for our [Vi
 
 ## The last CVD update crashed my ClamAV installation. Why?
 
-Before publishing a CVD update, we verify that it can be correctly loaded by the last two stable release series of ClamAV.
+Before publishing a CVD update, we verify that it can be correctly loaded by the last two stable release series of ClamAV. Please stay tuned to our [EOL policy](https://www.clamav.net/documents/end-of-life-policy-eol) for what versions are actively supported.
 
 ---
 
@@ -69,7 +69,13 @@ No problem, save your own signatures in a text file with the appropriate extensi
 
 ## Can I download the virusdb manually?
 
-Yes, the virusdb can be downloaded from the _Latest releases_ section on our home page.
+This practice is discouraged, please use either FreshClam or CvdUpdate to update your definitions.  Please check out our [FreshClam FAQ](https://www.clamav.net/documents/freshclam-faq) and our [Private Mirror Documentation](https://www.clamav.net/documents/private-local-mirrors) for further information and links to CvdUpdate.
+
+---
+
+## I am getting error codes such as 403, 429, etc when FreshClam (or other update system) attempts to download updates
+
+Are you attempting to download safebrowsing.cvd and getting a 403?  If so, [take a look at this blog post](https://blog.clamav.net/2021/04/are-you-still-attempting-to-download.html), otherwise check out our [Freshclam FAQ](https://www.clamav.net/documents/freshclam-faq) under the section on "Error Codes"
 
 ---
 
