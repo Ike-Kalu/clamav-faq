@@ -132,6 +132,18 @@ Continuing in the PowerShell window:
 
 ---
 
+### Start thr ClamAV server as a service
+
+<pre>
+  clamd.exe --install
+</pre>
+
+* Start/Stop the service
+
+<pre>
+  Use 'net start clamd' and 'net stop clamd' to start/stop the service.
+</pre>
+
 ### Faster a-la-carte Scanning with ClamD
 
 You may have noticed that `clamscan.exe` takes a while to get started. This is because it loads the signature database each time you start a scan. If you require faster scanning of individual files, you will want to use `clamd.exe` with `clamdscan.exe` instead. Please note that many of the command line options for clamscan should instead be configured in `clamd.conf` when using `clamd.exe`.
