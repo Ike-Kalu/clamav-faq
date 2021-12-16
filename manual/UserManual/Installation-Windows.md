@@ -132,7 +132,7 @@ Continuing in the PowerShell window:
 
 ---
 
-### Start thr ClamAV server as a service
+### Run the ClamAV server as a service
 
 <pre>
   clamd.exe --install
